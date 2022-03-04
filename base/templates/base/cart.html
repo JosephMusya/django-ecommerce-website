@@ -1,0 +1,74 @@
+{% extends 'main.html'%}
+
+{% block content %}
+{% if cart %}
+
+<div class="container">
+    <div class="text-center">
+        <h5 class="badge fs-5 text-primary text-center">My Cart</h5>
+    </div>
+    
+    {% if checkout is True %}
+    <button class="btn rounded border-success">
+        <a class="success text-decoration-none" href="{% url 'checkout' %}">Checkout</a>
+    </button> 
+    {% else %}
+    <div class="container">
+        <h5 class="text-warning">Delete items out of stock to checkout</h5>
+    </div>
+    {% endif %}
+</div>
+
+{% for item in cart %}
+<div class="container product-info cartdata">
+    <hr>
+    <div class="row p-2">
+  
+        <div class="col-sm-2 col-md-2 col-lg-1">
+            <img src="{{item.product.img.url}}" height="100%"width="100%" alt="">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2 text-center">
+            <h5>{{item.product.name}}</h5>
+        </div>
+
+        {% csrf_token %}
+
+        {% if item.product.quantity >= item.product_qty%}
+        
+        <div class="col-sm-2 col-md-2 col-lg-3 text-center mb-2 my-cart">
+            
+            <label class="text-success fw-bold"for="">Qty</label>
+            <input class="bg-info rounded rounded-2 qty" type="number" value="{{item.product_qty}}" min="1" max="{{item.product.quantity}}" step="1" style="width:70px"/>
+        
+            <input type="hidden" class="prod-id" value="{{item.product.id}}">
+            <input type="hidden" class="qty" value="{{item.product_qty}}">
+            <input type="hidden" class="prod-name" value="{{item.product.name}}">
+
+           
+            <label for="" class="edit-cart p-2 badge bg-success confirm btn">Confirm</label>
+        </div>
+        {% else %}
+        <div class="col-sm-2 col-md-2 col-lg-3 text-center mb-2">
+            <label class="text-danger fw-bold"for="">Out of Stock</label>
+        </div>
+        {% endif %}
+        <div class="col-sm-3 col-md-3 col-md-3 text-center mb-2">
+            <small class="fw-bolder fs-6">Ksh: {{item.product.price | stringformat:'d'}}</small>
+        </div>
+        <div class="col-sm-3 col-md-3 col-md-3 text-center mb-2">
+            <button class="btn bg-danger delete-item-cart">Delete</button>
+            <input type="hidden" class="prod-id" value="{{item.product.id}}">
+        </div> 
+        <hr>
+    </div>
+</div>
+{% endfor %}
+
+{% else %}
+<div class="container">
+    <div class="text-center">
+        <a href="{% url 'home' %}" class="text-decoration-none badge bg-info fs-5 text-danger">Your Cart is empty</a>
+    </div>
+</div>
+{% endif%}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container product-info">
+    <div class="row mx-auto">
+        
+
+        <div class="col-sm-12 col-md-5 col-lg-5">
+                <img class="" src="{{item.img.url}}" alt="{{item.name}}" height="250px" width="250px"> 
+        </div>
+
+        {% csrf_token %}
+        <div class="col-sm-12 col-md-7 col-lg-6">
+                <div class="product-info">
+                    <h5 class="card-title text-center">{{item.name}}</h5><hr>
+                    <p class="card-text text-center">{{item.description}}</p><hr>
+                    <div class="text-center mb-2">
+
+                        <label for="">Qty</label>
+                        <input class="bg-info rounded rounded-2 qty" type="number" value="1" min="1" max="10" step="1"/>
+                        <input type="hidden" class="prod-id" value="{{item.id}}">
+                        <input type="hidden" class="prod-name" value="{{item.name}}">
+
+                      <h5 class="badge bg-warning fs-6 d-inline">Ksh: {{item.price | stringformat:'d'}}</h5>
+                      <button class="nav-link border-success badge bg-warning fs-6 add-to-cart">Add to Cart</button>
+                      <label for="" class="p-2 badge bg-success">In Stock</label>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

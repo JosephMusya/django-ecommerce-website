@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    {% for i in item %}
+                        <tr>
+                            <th scope="col">{{i.name}}</th>
+                            <th scope="col">{{i.price}}</th>
+                            <th scope="col">{{i.description}}</th>
+                            <th scope="col">
+                                <img src=" {{ i.img.url }}" alt="">
+                            </th>
+                            <th class="" scope="col">
+                                <a class="text-decoration-none" href="{% url 'edit-item' i.id%}" class="">
+                                    <button class="btn bg-warning">Edit</button>
+                                </a>
+                                <a class="text-decoration-none" href="#" class="">
+                                    <button class="btn bg-danger">Delete</button>
+                                </a>
+                            </th>
+                            
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

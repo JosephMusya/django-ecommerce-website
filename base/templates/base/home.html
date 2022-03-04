@@ -1,0 +1,61 @@
+{% extends 'main.html'%}
+{% load static %}
+{% block content %}
+
+<div class="container bg-success rounded">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 cold-md-4 col-lg-4 mx-auto bg-info rounded rounded-2">
+      <h5 class="view-category text-center">View by categories</h5>
+      <hr>
+      {% for category in categories %}
+      <a href="{% url 'view-category' category %}" class="categories text-center fw-bold font-monospace nav-link">{{category}}</a>
+      <hr>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+  <!-- <div class="container">
+    <a href="{% url 'view-item' %}" class="nav-link text-decoration-none text-success">View Item (Admin)</a>
+    <a href="{% url 'add-item' %}" class="nav-link text-decoration-none text-success">Add Item (Admin)</a>
+  </div> -->
+
+<div class="container">
+  <div class="row px-auto">
+      {% for item in properties %}
+      <div class="col-sm-8 col-md-6 col-lg-4 mt-2 mx-auto main-cont">
+        <div class="card mb-2" >
+          
+          {% if item.trending %}
+          <h6 class="badge bg-danger mt-1 ms-1" style="width: 60px;">Trending</h6>
+          {% endif %}
+
+          <a href="{% url 'view-single' item.id %}" class="nav-link text-decoration-none text-center">
+            <img class="card-img-top"src="{{ item.img.url }}" height="100%"width="100%"/>
+          </a>       
+
+          {% csrf_token %}
+          <div class="card-body product-info">
+            
+            <a href="{% url 'view-single' item.id %}" class="nav-link text-decoration-none">
+              <h5 class="card-title text-center text-success">{{item.name}}</h5>
+              <p class="card-text text-center">{{item.description}}</p>
+            </a>
+
+            <input type="hidden" class="prod-id" value="{{item.id}}">
+            <input type="hidden" class="prod-name" value="{{item.name}}">
+            <input type="hidden" class="qty" value="1">
+
+
+
+            <div class="text-center">
+              <h5 class="badge bg-warning fs-6 d-inline">Ksh {{item.price | stringformat:'d'}}</h5>
+              <button class=" nav-link badge bg-warning fs-6 d-inline add-to-cart border-success">Add to Cart</button>      
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}

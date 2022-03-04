@@ -1,0 +1,74 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <h5 class="ms-2 mt-2 card-title text-primary text-centered">
+                    <h6 class="fw-bold text-success ms-2">Order View
+                        <a href="{{request.META.HTTP_REFERER}}" class="text-decoration-none">
+                            <button class="me-2 float-end btn btn-warning">Back</button>
+                        </a>
+                    </span>
+                </h5>
+                <div class="p-2 ms-2">
+                    <label class="fw-bold ">First Name</label>
+                    <div class="border">{{order.f_name}}</div>
+                </div>
+                <div class="p-2 ms-2">
+                    <label class="fw-bold ">Last Name</label>
+                    <div class="border">{{order.l_name}}</div>
+                </div>
+                <div class="p-2 ms-2">
+                    <label class="fw-bold ">Phone</label>
+                    <div class="border">{{order.phone}}</div>
+                </div>
+                <div class="p-2 ms-2">
+                    <label class="fw-bold ">Email</label>
+                    <div class="border">{{order.email}}</div>
+                </div>
+                <div class="p-2 ms-2">
+                    <label class="fw-bold ">Description</label>
+                    <div class="border">{{order.description}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="p-2 ms-2">Name</th>
+                            <th class="p-2 ms-2">Qty</th>
+                            <th class="p-2 ms-2">Price</th>
+                            <th class="p-2 ms-2">Image</th>
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        {% for item in ordered_items %}
+                            <tr>
+                                <td class="p-2 ms-2">{{item.product.name}}</td>
+                                <td class="p-2 ms-2">{{item.quantity}}</td>
+                                <td class="p-2 ms-2">{{item.product.price}}</td>
+                                <td class="p-2 ms-2">
+                                    <img src="{{item.product.img.url}}" height="50px" width="50px" alt="Product Image">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="mx-2 ms-2 me-2 my-2">
+                    <hr>
+                    <h6 class="border mx-2">Grand Total <span class=" fw-bold float-end me-2">Ksh:{{order.total_price}}</span></h6>
+                    <h6 class="border mx-2">Tracking Number: <span class=" fw-bold ">{{order.track_no}}</span></h6>
+                    <h6 class="border mx-2">Status: <span class=" fw-bold ">{{order.status}}</span></h6>
+                    <h6 class="border mx-2">Payment Mode: <span class=" fw-bold ">{{order.payment_mode}}</span></h6>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

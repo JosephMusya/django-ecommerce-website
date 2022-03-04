@@ -1,0 +1,89 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+    <form action="{% url 'place-order'%}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card border-primary border-2 shadow">
+                    <div class="card-body">
+                        <div class="card-title checkout">
+                            <h6 class="text-center">Shipping Details</h6>
+                            <hr>
+                            <div class="row ">
+                                <div class="col-sm-12 col-md-7 col-lg-6 ">
+                                    <label for="">First Name</label>
+                                    <input value="{{request.user.first_name}}" Required name ="f_name" class="form-control" type="text" placeholder="Enter Name">
+                                </div>
+                                <div class="col-sm-12 col-md-7 col-lg-6">
+                                    <label for="">Last Name</label>
+                                    <input value="{{request.user.last_name}}"Required name ="l_name" class="form-control" type="text" placeholder="Enter Name">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-7 col-lg-6">
+                                    <label for="">Phone Number</label>
+                                    <input value="{{userprofile.phone}}" Required name ="phone" class="form-control" type="text" placeholder="Enter Phone Number">
+                                </div>
+                                <div class="col-sm-12 col-md-7 col-lg-6">
+                                    <label for="">Town</label>
+                                    <input value="{{userprofile.town}}" Required name ="town" class="form-control" type="text" placeholder="Enter Town to ship">
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-sm-12 col-md-7 col-lg-6">
+                                    <label for="">Email</label>
+                                    <input value="{{userprofile.email}}" name = "email" class="form-control" type="text" placeholder="Enter Email (Optional)">
+                                </div>
+                                <div class="col-sm-12 col-md-7 col-lg-6">
+                                    <label for="">Order Description</label>
+                                    <input name ="description" class="form-control" type="text" placeholder="Additional Description for your order">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="cart-title check-out p-2 ms-2">
+                        <h5 class="text-centered h">Order Summary</h5>
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cartItems %}   
+                                <tr>
+                                    <th>
+                                        <img class="me-2"src=" {{ item.product.img.url}} " width="50px" height = "50px" alt="">
+                                        {{item.product.name}}</th>
+                                    <th>{{item.product_qty}}</th>
+                                    <th>{% widthratio item.product_qty 1 item.product.price %}</th>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <h5 class=" ms-2 text-success fw-bold">Grand Total
+                            <span class="float-end me-4">Ksh: {{total_price | stringformat:'d'}} </span>
+                            <input name = "total_price" type="hidden" value="{{ total_price }}">
+                        </h5>
+                        <div class="mt-3 mb-2">
+                            <a href="" class="text-decoration-none text-center">
+                                <button type="submit" class="w-100 fw-bold mx-auto bg-primary btn text-light w-90 rounded">COD | Place Order</button>
+                                <input name = "payment_mode" type="hidden" value="COD-Cash On Delivery">
+                            </a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

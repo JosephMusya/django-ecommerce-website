@@ -1,0 +1,45 @@
+.checkout label {
+    font-size: 16px;
+    font: 1em sans-serif;
+    color:blue;
+}
+button span{
+    background-color: aliceblue;
+    border-radius: 4px;
+}
+.items ul li a{
+    color: rgb(255, 255, 255) !important;
+    font-size: 20px;
+}
+
+.items ul li a:hover{
+    color:rgb(206, 25, 25) !important;
+}
+
+.navigation{
+    background-color: rgb(3, 40, 110);
+    border-radius: 4px;
+    position:initial;
+}
+.check-out h5 {
+    font-family: sans-serif;
+}
+
+/* .main-cont .card img{
+    height:300px !important;
+    width: 300px !important;
+    /* justify-content: center; */
+
+
+div .view-category{
+    color:black;
+    font-family:fantasy;
+}
+
+div .categories{
+    color:white;
+}
+
+div .category{
+    color:white;   
+}

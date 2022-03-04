@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="row container justify-content-center">
+    <div class="col-sm-12 col-md-4 col-lg-4 p-3">
+        <div class="card p-3 bg-success">
+            <form method='POST' action="" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Name</label>
+                    <input value="{{item.name}}" type="text" Required name = "name" class="form-control">
+                </div>     
+                <div class="mb-3">
+                    <label for="" class="form-label">Price</label>
+                    <input value="{{item.price}}" type="text" Required name = "price" class="form-control">
+                </div> 
+                <div class="mb-3">
+                    <label for="" class="form-label">Description</label>
+                    <input value="{{item.description}}" type="text" Required name = "description" class="form-control">
+                </div>  
+                <button class="btn btn-danger">
+                    Save Product
+                </button>                   
+            </form>
+            <a class="text-decoration-none" href="{{request.META.HTTP_REFERER}}" class="">
+                <button class="btn mt-2 btn-primary">
+                    Go Back
+                </button>
+            </a>
+        </div>    
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 border border-2 border-success rounded">
+        <h3>Uploaded items</h3>
+        <div class="card">
+            <img class=""src="{{ item.img.url }}"/>
+        </div>
+    </div>
+</div>
+{% endblock %}
