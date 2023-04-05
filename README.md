@@ -2,4 +2,4 @@
 
 Fullstack Ecommerce website relying in django templates.
 
-Durag shop
+Durag shop using Django templates 
